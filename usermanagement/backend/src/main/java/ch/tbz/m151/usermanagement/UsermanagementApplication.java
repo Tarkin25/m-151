@@ -1,15 +1,7 @@
 package ch.tbz.m151.usermanagement;
 
-import ch.tbz.m151.usermanagement.domain.department.Department;
-import ch.tbz.m151.usermanagement.domain.employee.Employee;
-import ch.tbz.m151.usermanagement.domain.employee.EmployeeRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import java.time.LocalDate;
-import java.util.UUID;
 
 @SpringBootApplication
 public class UsermanagementApplication {
@@ -18,7 +10,7 @@ public class UsermanagementApplication {
 		SpringApplication.run(UsermanagementApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean
 	public CommandLineRunner test(EmployeeRepository repository) {
 		return args -> {
 			Employee employee = new Employee()
@@ -34,6 +26,6 @@ public class UsermanagementApplication {
 
 			repository.create(employee);
 		};
-	}
+	}*/
 
 }

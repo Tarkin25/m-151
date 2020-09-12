@@ -1,11 +1,8 @@
 package ch.tbz.m151.usermanagement.domain.employee;
 
-import org.springframework.stereotype.Repository;
-
 import java.util.Collection;
 
-@Repository
-public interface EmployeeRepository {
+public interface EmployeeService {
 
     Collection<Employee> findAll();
 
@@ -13,7 +10,7 @@ public interface EmployeeRepository {
 
     Employee create(Employee employee);
 
-    Employee update(Employee employee);
+    Employee updateById(String id, Employee employee);
 
     void deleteById(String id);
 
