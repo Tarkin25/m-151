@@ -1,10 +1,13 @@
 import React from 'react'
-import {BrowserRouter} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import EmployeePage from './pages/EmployeePage';
 
 const App = () => {
   return (
     <BrowserRouter>
-      
+      <Switch>
+        <Route exact path="" component={EmployeePage} />
+      </Switch>
     </BrowserRouter>
   )
 }
