@@ -1,4 +1,4 @@
-package ch.tbz.m151.usermanagement;
+package ch.tbz.m151.usermanagement.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
