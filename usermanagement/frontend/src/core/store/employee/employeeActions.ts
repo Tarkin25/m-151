@@ -4,6 +4,7 @@ import EmployeeAction, {
     DELETE_EMPLOYEE,
     EDIT_EMPLOYEE,
     LOAD_EMPLOYEES,
+    STOP_EDIT_EMPLOYEE,
     UPDATE_EMPLOYEE
 } from "./employeeActionTypes";
 import {ThunkAction} from "redux-thunk";
@@ -45,6 +46,10 @@ export const editEmployee: (id: string) => EmployeeAction = id => ({
     }
 })
 
+export const stopEditEmployee: () => EmployeeAction = () => ({
+    type: STOP_EDIT_EMPLOYEE
+})
+
 export const loadEmployees: () => ThunkAction<Promise<void>, RootState, void, RootAction> = () => (dispatch, getState) => {
     const state = getState();
 
@@ -67,11 +72,11 @@ export const createEmployee: (employee: Employee) => ThunkAction<Promise<void>, 
         })
 }
 
-export const updateEmployee: (id: string, employee: Employee) => ThunkAction<Promise<void>, RootState, void, RootAction> = (id, employee) => dispatch => {
-    return employeeService.updateById(id, employee)
+export const updateEmployee: (employee: Employee) => ThunkAction<Promise<void>, RootState, void, RootAction> = (employee) => dispatch => {
+    return employeeService.updateById(employee.id!, employee)
         .then(res => res.data)
         .then(employee => {
-            dispatch(update(employee.id, employee))
+            dispatch(update(employee.id!, employee))
         })
 }
 

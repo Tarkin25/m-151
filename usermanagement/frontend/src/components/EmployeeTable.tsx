@@ -28,7 +28,7 @@ const EmployeeTable = () => {
 
     useEffect(() => {
         dispatch(loadEmployees());
-    }, []);
+    }, [dispatch]);
 
   return (
       <Table>

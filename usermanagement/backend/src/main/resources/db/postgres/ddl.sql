@@ -20,6 +20,7 @@ create table employee
     last_name       character varying(255) not null,
     password        character varying(255) not null,
     email           character varying(255),
+    username        character varying(255),
     ahv_number      char(16)               not null unique,
     birth_date      date                   not null,
     personal_number char(36)               not null unique,

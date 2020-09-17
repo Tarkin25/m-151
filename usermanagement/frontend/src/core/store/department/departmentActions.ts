@@ -24,5 +24,3 @@ export const loadDepartments: () => ThunkAction<Promise<void>, RootState, void, 
         return Promise.resolve();
     }
 }
-
-export default loadDepartments

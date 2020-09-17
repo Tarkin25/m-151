@@ -10,9 +10,9 @@ type Employee = DomainEntity & {
     password: string
     email: string
     ahvNumber: string
-    birthDate: Moment
+    birthDate?: Moment
     personalNumber: string
-    department: Department
+    department?: Department
     job?: Job
 }
 

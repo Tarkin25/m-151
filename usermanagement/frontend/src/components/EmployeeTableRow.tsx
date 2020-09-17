@@ -7,15 +7,21 @@ import EditIcon from '@material-ui/icons/Edit';
 import useThunkDispatch from "../hooks/useThunkDispatch";
 import {deleteEmployee, editEmployee} from "../core/store/employee/employeeActions";
 import {selectEmployee} from "../core/store/employee/employeeSelectors";
+import Department from '../core/models/Department';
 
 type EmployeeTableRowProps = {
     id: string
 }
 
 const emptyJob: Job = {
-    id: "emptyJob",
+    id: undefined!,
     name: "-",
     description: "-"
+}
+
+const emptyDepartment: Department = {
+    id: undefined!,
+    name: "-"
 }
 
 const EmployeeTableRow = (props: EmployeeTableRowProps) => {
@@ -31,7 +37,7 @@ const EmployeeTableRow = (props: EmployeeTableRowProps) => {
         personalNumber,
         department: {
             name: departmentName
-        },
+        } = emptyDepartment,
         job: {
             name: jobName,
             description: jobDescription
@@ -41,15 +47,15 @@ const EmployeeTableRow = (props: EmployeeTableRowProps) => {
     const dispatch = useThunkDispatch();
 
     const handleEdit = () => {
-        dispatch(editEmployee(id))
+        dispatch(editEmployee(id!))
     }
 
     const handleDelete = () => {
-        dispatch(deleteEmployee(id))
+        dispatch(deleteEmployee(id!))
     }
 
     return (
-        <TableRow hover>
+        <TableRow>
             <TableCell>
                 {firstName}
             </TableCell>

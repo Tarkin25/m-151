@@ -1,6 +1,6 @@
 import {normalizeArray, StringMap} from '../../util'
 import Employee from '../../models/Employee'
-import EmployeeAction, {ADD_EMPLOYEE, LOAD_EMPLOYEES} from "./employeeActionTypes";
+import EmployeeAction, {ADD_EMPLOYEE, EDIT_EMPLOYEE, LOAD_EMPLOYEES, STOP_EDIT_EMPLOYEE, UPDATE_EMPLOYEE} from "./employeeActionTypes";
 
 export type EmployeeState = {
     byId: StringMap<Employee>,
@@ -32,6 +32,24 @@ const employeeReducer: (state: EmployeeState | undefined, action: EmployeeAction
                     ...state.byId,
                     [action.payload.employee.id]: action.payload.employee
                 }
+            }
+        case UPDATE_EMPLOYEE:
+            return {
+                ...state,
+                byId: {
+                    ...state.byId,
+                    [action.payload.id]: action.payload.employee
+                }
+            }
+        case EDIT_EMPLOYEE:
+            return {
+                ...state,
+                selectedId: action.payload.id
+            }
+        case STOP_EDIT_EMPLOYEE:
+            return {
+                ...state,
+                selectedId: undefined
             }
         default:
             return state;

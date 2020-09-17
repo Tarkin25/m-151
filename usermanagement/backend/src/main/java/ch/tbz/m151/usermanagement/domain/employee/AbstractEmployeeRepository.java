@@ -78,6 +78,7 @@ public abstract class AbstractEmployeeRepository implements EmployeeRepository {
                 .setLastName(rs.getString("last_name"))
                 .setPassword(rs.getString("password"))
                 .setEmail(rs.getString("email"))
+                .setUsername(rs.getString("username"))
                 .setAhvNumber(rs.getString("ahv_number"))
                 .setBirthDate(rs.getDate("birth_date").toLocalDate())
                 .setPersonalNumber(rs.getString("personal_number"));
