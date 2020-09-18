@@ -2,38 +2,47 @@ package ch.tbz.m151.usermanagement.domain.employee;
 
 import ch.tbz.m151.usermanagement.domain.department.Department;
 import ch.tbz.m151.usermanagement.domain.job.Job;
+import ch.tbz.m151.usermanagement.validation.AHVNumber;
+import ch.tbz.m151.usermanagement.validation.BirthDate;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Employee {
 
     private String id;
+
+    @NotNull(message = "required")
     private String firstName;
+
+    @NotNull(message = "required")
     private String lastName;
-    private String username;
-    private String password;
+
+    @Email
     private String email;
+
+    @AHVNumber
     private String ahvNumber;
+
+    @BirthDate
     private LocalDate birthDate;
+
+    @NotNull(message = "required")
     private String personalNumber;
+
+    @NotNull(message = "required")
     private Department department;
+
     private Job job;
 
     public Employee() {
-    }
-
-    public Employee(String id, String firstName, String lastName, String username, String password, String email, String ahvNumber, LocalDate birthDate, String personalNumber, Department department, Job job) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.ahvNumber = ahvNumber;
-        this.birthDate = birthDate;
-        this.personalNumber = personalNumber;
-        this.department = department;
-        this.job = job;
     }
 
     public String getId() {
@@ -60,24 +69,6 @@ public class Employee {
 
     public Employee setLastName(String lastName) {
         this.lastName = lastName;
-        return this;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public Employee setUsername(String username) {
-        this.username = username;
-        return this;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Employee setPassword(String password) {
-        this.password = password;
         return this;
     }
 
@@ -121,9 +112,20 @@ public class Employee {
         return birthDate;
     }
 
+    @JsonGetter("birthDate")
+    public String getBirthDateString() {
+        return birthDate != null ? birthDate.format(DateTimeFormatter.ISO_LOCAL_DATE) : null;
+    }
+
     public Employee setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
         return this;
+    }
+
+    @JsonSetter("birthDate")
+    public void setBirthDate(String birthDate) {
+        if(birthDate == null) this.birthDate = null;
+         else this.birthDate = LocalDate.parse(birthDate, DateTimeFormatter.ISO_LOCAL_DATE);
     }
 
     public String getPersonalNumber() {

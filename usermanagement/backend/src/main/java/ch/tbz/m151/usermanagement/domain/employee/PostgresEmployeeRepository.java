@@ -13,12 +13,12 @@ public class PostgresEmployeeRepository extends AbstractEmployeeRepository {
 
     @Override
     protected PreparedStatement prepareInsert() throws Exception {
-        return connection.prepareStatement("call insert_employee(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        return connection.prepareStatement("call insert_employee(?, ?, ?, ?, ?, ?, ?, ?, ?)");
     }
 
     @Override
     protected PreparedStatement prepareUpdate() throws Exception {
-        return connection.prepareStatement("call update_employee(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        return connection.prepareStatement("call update_employee(?, ?, ?, ?, ?, ?, ?, ?, ?)");
     }
 
     @Override

@@ -3,8 +3,10 @@ package ch.tbz.m151.usermanagement.domain.employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
@@ -33,14 +35,14 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<Employee> create(@RequestBody Employee employee) {
+    public ResponseEntity<Employee> create(@RequestBody @Valid Employee employee) {
         employee = employeeService.create(employee);
 
         return new ResponseEntity<>(employee, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Employee> updateById(@PathVariable String id, @RequestBody Employee employee) {
+    public ResponseEntity<Employee> updateById(@PathVariable String id, @RequestBody @Valid Employee employee) {
         employee = employeeService.updateById(id, employee);
 
         return new ResponseEntity<>(employee, HttpStatus.OK);

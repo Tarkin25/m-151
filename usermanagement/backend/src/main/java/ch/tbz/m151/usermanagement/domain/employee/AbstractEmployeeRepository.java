@@ -4,10 +4,7 @@ import ch.tbz.m151.usermanagement.domain.department.Department;
 import ch.tbz.m151.usermanagement.domain.job.Job;
 import org.slf4j.Logger;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -76,9 +73,7 @@ public abstract class AbstractEmployeeRepository implements EmployeeRepository {
                 .setId(rs.getString("id"))
                 .setFirstName(rs.getString("first_name"))
                 .setLastName(rs.getString("last_name"))
-                .setPassword(rs.getString("password"))
                 .setEmail(rs.getString("email"))
-                .setUsername(rs.getString("username"))
                 .setAhvNumber(rs.getString("ahv_number"))
                 .setBirthDate(rs.getDate("birth_date").toLocalDate())
                 .setPersonalNumber(rs.getString("personal_number"));
@@ -105,22 +100,7 @@ public abstract class AbstractEmployeeRepository implements EmployeeRepository {
     public final Employee create(Employee employee) {
         try {
             PreparedStatement ps = prepareInsert();
-            ps.setString(1, employee.getId());
-            ps.setString(2, employee.getFirstName());
-            ps.setString(3, employee.getLastName());
-            ps.setString(4, employee.getPassword());
-            ps.setString(5, employee.getEmail());
-            ps.setString(6, employee.getAhvNumber());
-            ps.setDate(7, Date.valueOf(employee.getBirthDate()));
-            ps.setString(8, employee.getPersonalNumber());
-            ps.setString(9, employee.getDepartment().getId());
-
-            if(employee.getJob() != null) {
-                ps.setString(10, employee.getJob().getId());
-            } else {
-                ps.setString(10, null);
-            }
-
+            populatePreparedStatement(ps, employee);
             ps.execute();
 
             return employee;
@@ -133,26 +113,28 @@ public abstract class AbstractEmployeeRepository implements EmployeeRepository {
     public final Employee update(Employee employee) {
         try {
             PreparedStatement ps = prepareUpdate();
-            ps.setString(1, employee.getId());
-            ps.setString(2, employee.getFirstName());
-            ps.setString(3, employee.getLastName());
-            ps.setString(4, employee.getPassword());
-            ps.setString(5, employee.getEmail());
-            ps.setString(6, employee.getAhvNumber());
-            ps.setDate(7, Date.valueOf(employee.getBirthDate()));
-            ps.setString(8, employee.getPersonalNumber());
-            ps.setString(9, employee.getDepartment().getId());
-            if(employee.getJob() != null) {
-                ps.setString(10, employee.getJob().getId());
-            } else {
-                ps.setString(10, null);
-            }
-
+            populatePreparedStatement(ps ,employee);
             ps.execute();
 
             return employee;
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void populatePreparedStatement(PreparedStatement ps, Employee employee) throws SQLException {
+        ps.setString(1, employee.getId());
+        ps.setString(2, employee.getFirstName());
+        ps.setString(3, employee.getLastName());
+        ps.setString(4, employee.getEmail());
+        ps.setString(5, employee.getAhvNumber());
+        ps.setDate(6, Date.valueOf(employee.getBirthDate()));
+        ps.setString(7, employee.getPersonalNumber());
+        ps.setString(8, employee.getDepartment().getId());
+        if(employee.getJob() != null) {
+            ps.setString(9, employee.getJob().getId());
+        } else {
+            ps.setString(9, null);
         }
     }
 

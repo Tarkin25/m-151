@@ -70,6 +70,7 @@ export const createEmployee: (employee: Employee) => ThunkAction<Promise<void>, 
         .then(employee => {
             dispatch(add(employee))
         })
+        .catch(error => console.error(error.response))
 }
 
 export const updateEmployee: (employee: Employee) => ThunkAction<Promise<void>, RootState, void, RootAction> = (employee) => dispatch => {
@@ -78,6 +79,7 @@ export const updateEmployee: (employee: Employee) => ThunkAction<Promise<void>, 
         .then(employee => {
             dispatch(update(employee.id!, employee))
         })
+        .catch(error => console.error(error.response));
 }
 
 export const deleteEmployee: (id: string) => ThunkAction<Promise<void>, RootState, void, RootAction> = id => dispatch => {
