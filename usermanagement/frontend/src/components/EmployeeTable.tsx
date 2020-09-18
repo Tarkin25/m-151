@@ -17,7 +17,7 @@ const useStyle = makeStyles(theme => ({
     }
 }))
 
-const labels = ["Firstname", "Lastname", "Username", "Email", "AHV Nr.", "Birthdate", "Personal Nr.", "Department", "Job", "Job Description"];
+const labels = ["Firstname", "Lastname", "Email", "AHV Nr.", "Birthdate", "Personal Nr.", "Department", "Job", "Job Description"];
 
 const EmployeeTable = () => {
 
@@ -35,7 +35,7 @@ const EmployeeTable = () => {
         <TableHead>
           <TableRow>
             {labels.map(label => (
-                <TableCell className={classes.headerCell}>
+                <TableCell key={label} className={classes.headerCell}>
                     {label}
                 </TableCell>
             ))}

@@ -1,6 +1,5 @@
-import DomainEntity from "./DomainEntity";
-
-type Job = DomainEntity & {
+type Job = {
+    id: string | -1
     name: string
     description?: string
 }

@@ -1,13 +1,14 @@
 import React from 'react'
 import {useSelector} from "react-redux";
 import Job from "../core/models/Job";
-import {IconButton, TableCell, TableRow} from "@material-ui/core";
-import DeleteIcon from '@material-ui/icons/Delete';
+import {IconButton, makeStyles, TableCell, TableRow} from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import useThunkDispatch from "../hooks/useThunkDispatch";
 import {deleteEmployee, editEmployee} from "../core/store/employee/employeeActions";
 import {selectEmployee} from "../core/store/employee/employeeSelectors";
 import Department from '../core/models/Department';
+import moment from 'moment';
 
 type EmployeeTableRowProps = {
     id: string
@@ -24,13 +25,23 @@ const emptyDepartment: Department = {
     name: "-"
 }
 
+const useStyle = makeStyles(theme => ({
+    editButton: {
+        
+    },
+    deleteButton: {
+        color: theme.palette.error.main
+    }
+}))
+
 const EmployeeTableRow = (props: EmployeeTableRowProps) => {
+
+    const classes = useStyle();
 
     const {
         id,
         firstName,
         lastName,
-        username,
         email,
         ahvNumber,
         birthDate,
@@ -63,16 +74,13 @@ const EmployeeTableRow = (props: EmployeeTableRowProps) => {
                 {lastName}
             </TableCell>
             <TableCell>
-                {username}
-            </TableCell>
-            <TableCell>
                 {email}
             </TableCell>
             <TableCell>
                 {ahvNumber}
             </TableCell>
             <TableCell>
-                {birthDate}
+                {moment(birthDate).format("DD.MM.YYYY")} 
             </TableCell>
             <TableCell>
                 {personalNumber}
@@ -87,10 +95,10 @@ const EmployeeTableRow = (props: EmployeeTableRowProps) => {
                 {jobDescription}
             </TableCell>
             <TableCell>
-                <IconButton size={"small"} onClick={handleEdit}>
+                <IconButton title="Edit" className={classes.editButton} size={"small"} onClick={handleEdit}>
                     <EditIcon />
                 </IconButton>
-                <IconButton size={"small"} onClick={handleDelete}>
+                <IconButton title="Delete" className={classes.deleteButton} size={"small"} onClick={handleDelete}>
                     <DeleteIcon />
                 </IconButton>
             </TableCell>

@@ -1,16 +1,14 @@
-import { Moment } from "moment";
 import Department from "./Department";
 import DomainEntity from "./DomainEntity";
 import Job from "./Job";
 
 type Employee = DomainEntity & {
+    id: string
     firstName: string
     lastName: string
-    username: string
-    password: string
-    email: string
+    email?: string
     ahvNumber: string
-    birthDate?: Moment
+    birthDate: string
     personalNumber: string
     department?: Department
     job?: Job

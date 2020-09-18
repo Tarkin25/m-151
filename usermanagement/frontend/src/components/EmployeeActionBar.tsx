@@ -1,12 +1,14 @@
 import {IconButton, makeStyles, Toolbar} from "@material-ui/core";
 import React, {useState, Fragment} from "react";
 import AddIcon from '@material-ui/icons/Add';
-import useThunkDispatch from "../hooks/useThunkDispatch";
 import CreateEmployeeDialog from "./CreateEmployeeDialog";
 
 const useStyle = makeStyles(theme => ({
     root: {
         display: 'flex'
+    },
+    addButton: {
+        color: theme.palette.success.main
     }
 }));
 
@@ -22,7 +24,7 @@ const EmployeeActionBar = () => {
     return (
         <Fragment>
             <Toolbar className={classes.root}>
-                <IconButton onClick={openDialog}>
+                <IconButton title="New Employee" className={classes.addButton} onClick={openDialog}>
                     <AddIcon />
                 </IconButton>
             </Toolbar>

@@ -21,14 +21,18 @@ const emptyEmployee: Employee = {
     id: undefined!,
     firstName: "",
     lastName: "",
-    password: "",
-    username: "",
     email: "",
     ahvNumber: "",
-    birthDate: undefined,
+    birthDate: undefined!,
     personalNumber: "",
-    department: undefined,
-    job: undefined
+    department: {
+        id: -1, 
+        name: ""
+    },
+    job: {
+        id: -1,
+        name: ""
+    }
 }
 
 const CreateEmployeeDialog = (props: CreateEmployeeDialogProps) => {
@@ -59,7 +63,7 @@ const CreateEmployeeDialog = (props: CreateEmployeeDialogProps) => {
                     </DialogContent>
                     <DialogActions className={classes.actions}>
                         <Button color="primary" variant="outlined" onClick={onClose}>Cancel</Button>
-                        <Button color="primary" variant="contained" type="submit">Save</Button>
+                        <Button color="primary" variant="contained" type="submit">Save</Button> 
                     </DialogActions>
                 </Form>
             </Formik>

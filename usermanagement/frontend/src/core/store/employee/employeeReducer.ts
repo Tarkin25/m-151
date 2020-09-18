@@ -1,6 +1,6 @@
 import {normalizeArray, StringMap} from '../../util'
 import Employee from '../../models/Employee'
-import EmployeeAction, {ADD_EMPLOYEE, EDIT_EMPLOYEE, LOAD_EMPLOYEES, STOP_EDIT_EMPLOYEE, UPDATE_EMPLOYEE} from "./employeeActionTypes";
+import EmployeeAction, {ADD_EMPLOYEE, EDIT_EMPLOYEE, LOAD_EMPLOYEES, STOP_EDIT_EMPLOYEE, UPDATE_EMPLOYEE, DELETE_EMPLOYEE} from "./employeeActionTypes";
 
 export type EmployeeState = {
     byId: StringMap<Employee>,
@@ -51,8 +51,22 @@ const employeeReducer: (state: EmployeeState | undefined, action: EmployeeAction
                 ...state,
                 selectedId: undefined
             }
+        case DELETE_EMPLOYEE:
+            return removeEmployee(state, action.payload.id)
         default:
             return state;
+    }
+}
+
+const removeEmployee = (state: EmployeeState, id: string) => {
+    let byId = {...state.byId}
+    
+    delete byId[id]
+
+    return {
+        ...state,
+        byId,
+        allIds: state.allIds.filter(eId => eId !== id)
     }
 }
 

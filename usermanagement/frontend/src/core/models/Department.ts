@@ -1,6 +1,7 @@
-import DomainEntity from "./DomainEntity";
+import DomainEntity from "./DomainEntity"
 
-type Department = DomainEntity & {
+type Department = {
+    id: string | -1
     name: string
 }
 

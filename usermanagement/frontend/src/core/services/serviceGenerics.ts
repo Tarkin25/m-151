@@ -1,6 +1,9 @@
 import { AxiosResponse } from "axios";
 import api from "../../config/api";
-import DomainEntity from "../models/DomainEntity";
+
+type DomainEntity = {
+    id?: string | -1
+}
 
 export interface ReadService<T extends DomainEntity> {
     findAll: () => Promise<AxiosResponse<T[]>>
