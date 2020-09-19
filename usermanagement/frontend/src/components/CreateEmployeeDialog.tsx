@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from '@material-ui/core'
 import { Form, Formik } from 'formik'
 import React from 'react'
-import Employee from '../core/models/Employee'
+import Employee, { employeeSchema } from '../core/models/Employee'
 import { createEmployee } from '../core/store/employee/employeeActions'
 import useThunkDispatch from '../hooks/useThunkDispatch'
 import EmployeeFields from './EmployeeFields'
@@ -56,6 +56,7 @@ const CreateEmployeeDialog = (props: CreateEmployeeDialogProps) => {
             <Formik
                 initialValues={emptyEmployee}
                 onSubmit={handleSubmit}
+                validationSchema={employeeSchema}
             >
                 <Form>
                     <DialogContent>
