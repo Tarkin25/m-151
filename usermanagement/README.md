@@ -2,7 +2,6 @@
 
 ### A 5-tier web application to manage employees inside a company
 <br>
-<br>
 
 # Getting started
 
