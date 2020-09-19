@@ -58,4 +58,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteById(String id) {
         employeeRepository.deleteById(id);
     }
+
+    @Override
+    public boolean existsByAhvNumber(String ahvNumber, String excludeId) {
+        return employeeRepository.existsByAhvNumber(ahvNumber, excludeId);
+    }
+
+    @Override
+    public boolean existsByPersonalNumber(String personalNumber, String excludeId) {
+        return employeeRepository.existsByPersonalNumber(personalNumber, excludeId);
+    }
 }

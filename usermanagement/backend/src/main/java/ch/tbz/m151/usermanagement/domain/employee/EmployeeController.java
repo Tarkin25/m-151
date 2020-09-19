@@ -34,6 +34,19 @@ public class EmployeeController {
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
+    @GetMapping("/exists")
+    public ResponseEntity<Boolean> exists(@RequestParam(required = false) String ahvNumber, @RequestParam(required = false) String personalNumber, @RequestParam(required = false) String excludeId) {
+        boolean exists = false;
+
+        if(ahvNumber != null) {
+            exists = employeeService.existsByAhvNumber(ahvNumber, excludeId);
+        } else if(personalNumber != null) {
+            exists = employeeService.existsByPersonalNumber(personalNumber, excludeId);
+        }
+
+        return new ResponseEntity<>(exists, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Employee> create(@RequestBody @Valid Employee employee) {
         employee = employeeService.create(employee);

@@ -17,4 +17,8 @@ public interface EmployeeRepository {
 
     void deleteById(String id);
 
+    boolean existsByAhvNumber(String ahvNumber, String excludeId);
+
+    boolean existsByPersonalNumber(String personalNumber, String excludeId);
+
 }

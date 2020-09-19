@@ -9,7 +9,7 @@ import {
 import { Form, Formik } from "formik";
 import React from "react";
 import { useSelector } from "react-redux";
-import Employee from "../core/models/Employee";
+import Employee, { employeeSchema } from "../core/models/Employee";
 import { stopEditEmployee, updateEmployee } from "../core/store/employee/employeeActions";
 import { selectSelectedEmployee } from "../core/store/employee/employeeSelectors";
 import useThunkDispatch from "../hooks/useThunkDispatch";
@@ -42,7 +42,7 @@ const EditEmployeeDialog = () => {
                 <DialogTitle>
                     Edit {employee.firstName} {employee.lastName}
                 </DialogTitle>
-                <Formik initialValues={employee} onSubmit={handleSubmit}>
+                <Formik initialValues={employee} onSubmit={handleSubmit} validationSchema={employeeSchema(employee.id)}>
                     <Form>
                         <DialogContent>
                             <EmployeeFields />

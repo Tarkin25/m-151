@@ -12,7 +12,7 @@ const EmployeeFields = () => {
     return (
         <Grid container direction="row" spacing={2}>
             <Grid item xs={12}>
-                <FormikTextField name="firstName" label="Firstname" />
+                <FormikTextField name="firstName" label="Firstname" autoFocus />
             </Grid>
             <Grid item xs={12}>
                 <FormikTextField name="lastName" label="Lastname" />
@@ -21,7 +21,7 @@ const EmployeeFields = () => {
                 <FormikTextField name="email" label="Email" type="email" />
             </Grid>
             <Grid item xs={12}>
-                <FormikTextField name="ahvNumber" label="AHV Nr." />
+                <FormikTextField name="ahvNumber" label="AHV Nr." helperText="Format: xxx.xxxx.xxxx.xx" />
             </Grid>
             <Grid item xs={12}>
                 {<FormikTextField
@@ -45,7 +45,7 @@ const EmployeeFields = () => {
                     label="Department"
                     select
                 >
-                    <MenuItem value={-1}>
+                    <MenuItem value={-1} disabled>
                         <em>Please select</em>
                     </MenuItem>
                     {departments.map(department => (

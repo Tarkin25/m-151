@@ -17,6 +17,10 @@ public abstract class AbstractEmployeeRepository implements EmployeeRepository {
 
     private static final String SELECT_EMPLOYEE_BY_ID = SELECT_EMPLOYEE + " where e.id = ?";
 
+    private static final String SELECT_EXISTS_BY_AHV_NUMBER = "select count(*) > 0 as exists from employee where ahv_number = ?";
+
+    private static final String SELECT_EXISTS_BY_PERSONAL_NUMBER = "select count(*) > 0 as exists from employee where personal_number = ?";
+
     protected final Logger logger;
     protected final Connection connection;
 
@@ -146,6 +150,38 @@ public abstract class AbstractEmployeeRepository implements EmployeeRepository {
 
             ps.execute();
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean existsByAhvNumber(String ahvNumber, String excludeId) {
+        return exists(SELECT_EXISTS_BY_AHV_NUMBER, ahvNumber, excludeId);
+    }
+
+    @Override
+    public boolean existsByPersonalNumber(String personalNumber, String excludeId) {
+        return exists(SELECT_EXISTS_BY_PERSONAL_NUMBER, personalNumber, excludeId);
+    }
+
+    private boolean exists(String sql, String value, String excludeId) {
+        try {
+            if(excludeId != null) {
+                sql += " and id != ?";
+            }
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, value);
+
+            if(excludeId != null) {
+                ps.setString(2, excludeId);
+            }
+
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+
+            return rs.getBoolean("exists");
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

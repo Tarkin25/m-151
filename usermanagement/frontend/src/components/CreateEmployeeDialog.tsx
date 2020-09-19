@@ -56,7 +56,7 @@ const CreateEmployeeDialog = (props: CreateEmployeeDialogProps) => {
             <Formik
                 initialValues={emptyEmployee}
                 onSubmit={handleSubmit}
-                validationSchema={employeeSchema}
+                validationSchema={employeeSchema()}
             >
                 <Form>
                     <DialogContent>
