@@ -1,7 +1,6 @@
 # Usermanagement
 
-### A 5-tier web application to manage employees inside a company
-<br>
+#### A 5-tier web application to manage employees inside a company
 
 # Getting started
 
