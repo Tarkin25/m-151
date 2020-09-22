@@ -14,23 +14,23 @@ import java.util.Collection;
 @RequestMapping("/jobs")
 public class JobController {
 
-    private final JobRepository jobRepository;
+    private final JobService jobService;
 
     @Autowired
-    public JobController(JobRepository jobRepository) {
-        this.jobRepository = jobRepository;
+    public JobController(JobService jobService) {
+        this.jobService = jobService;
     }
 
     @GetMapping
     public ResponseEntity<Collection<Job>> findAll() {
-        Collection<Job> jobs = jobRepository.findAll();
+        Collection<Job> jobs = jobService.findAll();
 
         return new ResponseEntity<>(jobs, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Job> findById(@PathVariable String id) {
-        Job job = jobRepository.findById(id);
+        Job job = jobService.findById(id);
 
         return new ResponseEntity<>(job, HttpStatus.OK);
     }

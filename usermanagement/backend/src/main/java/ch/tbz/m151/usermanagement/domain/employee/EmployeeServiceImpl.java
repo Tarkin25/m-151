@@ -1,7 +1,7 @@
 package ch.tbz.m151.usermanagement.domain.employee;
 
-import ch.tbz.m151.usermanagement.domain.department.DepartmentRepository;
-import ch.tbz.m151.usermanagement.domain.job.JobRepository;
+import ch.tbz.m151.usermanagement.domain.department.DepartmentService;
+import ch.tbz.m151.usermanagement.domain.job.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +12,14 @@ import java.util.UUID;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
-    private final DepartmentRepository departmentRepository;
-    private final JobRepository jobRepository;
+    private final DepartmentService departmentService;
+    private final JobService jobService;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository, JobRepository jobRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, DepartmentService departmentService, JobService jobService) {
         this.employeeRepository = employeeRepository;
-        this.departmentRepository = departmentRepository;
-        this.jobRepository = jobRepository;
+        this.departmentService = departmentService;
+        this.jobService = jobService;
     }
 
     @Override
@@ -35,9 +35,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee create(Employee employee) {
         employee.setId(UUID.randomUUID().toString());
-        employee.setDepartment(departmentRepository.findById(employee.getDepartment().getId()));
+        employee.setDepartment(departmentService.findById(employee.getDepartment().getId()));
         if(employee.getJob() != null) {
-            employee.setJob(jobRepository.findById(employee.getJob().getId()));
+            employee.setJob(jobService.findById(employee.getJob().getId()));
         }
 
         return employeeRepository.create(employee);
@@ -46,9 +46,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee updateById(String id, Employee employee) {
         employee.setId(id);
-        employee.setDepartment(departmentRepository.findById(employee.getDepartment().getId()));
+        employee.setDepartment(departmentService.findById(employee.getDepartment().getId()));
         if(employee.getJob() != null) {
-            employee.setJob(jobRepository.findById(employee.getJob().getId()));
+            employee.setJob(jobService.findById(employee.getJob().getId()));
         }
 
         return employeeRepository.update(employee);

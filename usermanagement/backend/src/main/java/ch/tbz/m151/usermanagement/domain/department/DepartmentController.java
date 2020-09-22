@@ -14,23 +14,23 @@ import java.util.Collection;
 @RequestMapping("/departments")
 public class DepartmentController {
 
-    private final DepartmentRepository departmentRepository;
+    private final DepartmentService departmentService;
 
     @Autowired
-    public DepartmentController(DepartmentRepository departmentRepository) {
-        this.departmentRepository = departmentRepository;
+    public DepartmentController(DepartmentService departmentService) {
+        this.departmentService = departmentService;
     }
 
     @GetMapping
     public ResponseEntity<Collection<Department>> findAll() {
-        Collection<Department> departments = departmentRepository.findAll();
+        Collection<Department> departments = departmentService.findAll();
 
         return new ResponseEntity<>(departments, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Department> findById(@PathVariable String id) {
-        Department department = departmentRepository.findById(id);
+        Department department = departmentService.findById(id);
 
         return new ResponseEntity<>(department, HttpStatus.OK);
     }
